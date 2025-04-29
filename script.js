@@ -23,10 +23,18 @@ const img = document.getElementById("questionImage");
 
 // === Khởi tạo Materialize dropdown ===
 document.addEventListener("DOMContentLoaded", () => {
-    M.AutoInit();
-    loadSavedAnswers();
-});
+    const selects = document.querySelectorAll('select');
+    M.FormSelect.init(selects);
 
+    // Gán sự kiện onchange cho #modeSelector
+    const modeSelector = document.getElementById("modeSelector");
+    modeSelector.addEventListener("change", loadTopicsByMode);
+
+    // Load lại trạng thái trước nếu có
+    if (localStorage.getItem('currentQuizMode')) {
+        loadSavedAnswers();
+    }
+});
 // === Thêm xử lý cho nút 50/50  ===
 document.getElementById("btn5050").addEventListener("click", () => {
     if (fiftyFiftyUsed) return;
@@ -47,7 +55,7 @@ document.getElementById("btn5050").addEventListener("click", () => {
 document.getElementById("btnAddTime").addEventListener("click", () => {
     if (addTimeUsed) return;
     addTimeUsed = true;
-    remainingTime  += 5;
+    remainingTime += 5;
 });
 
 function shuffle(array) {
@@ -145,37 +153,80 @@ function startQuiz() {
 }
 
 // === Hiển thị câu hỏi hiện tại ===
+// function showQuestion() {
+//     const q = quizData[currentQuestionIndex];
+//     questionText.textContent = `Câu ${currentQuestionIndex + 1}: ${q.question}`;
+//
+//     if (q.image) {
+//         img.src = q.image;
+//         img.classList.remove("hidden");
+//     } else {
+//         img.src = "";
+//         img.classList.add("hidden");
+//     }
+//
+//     optionsContainer.innerHTML = '';
+//     const savedAnswer = selectedAnswers[currentQuestionIndex];
+//
+//     q.options.forEach((opt, idx) => {
+//         const label = document.createElement("label");
+//         label.className = "answer-box";
+//
+//         const inputType = q.type === "multiple" ? "checkbox" : "radio";
+//         const checked = savedAnswer?.selected?.includes(idx) || savedAnswer?.selected === idx ? 'checked' : '';
+//
+//         label.innerHTML = `
+//             <input name="answer" type="${inputType}" value="${idx}" ${checked}/>
+//             <span>${opt}</span>
+//         `;
+//         optionsContainer.appendChild(label);
+//     });
+//
+//     renderQuestionButtons();
+// }
+
 function showQuestion() {
-    const q = quizData[currentQuestionIndex];
-    questionText.textContent = `Câu ${currentQuestionIndex + 1}: ${q.question}`;
+    quizDiv.classList.add("fade-out");
 
-    if (q.image) {
-        img.src = q.image;
-        img.classList.remove("hidden");
-    } else {
-        img.src = "";
-        img.classList.add("hidden");
-    }
+    quizDiv.addEventListener("animationend", function handler() {
+        quizDiv.removeEventListener("animationend", handler);
+        quizDiv.classList.remove("fade-out");
 
-    optionsContainer.innerHTML = '';
-    const savedAnswer = selectedAnswers[currentQuestionIndex];
+        const q = quizData[currentQuestionIndex];
+        questionText.textContent = `Câu ${currentQuestionIndex + 1}: ${q.question}`;
 
-    q.options.forEach((opt, idx) => {
-        const label = document.createElement("label");
-        label.className = "answer-box";
+        if (q.image) {
+            img.src = q.image;
+            img.classList.remove("hidden");
+        } else {
+            img.src = "";
+            img.classList.add("hidden");
+        }
 
-        const inputType = q.type === "multiple" ? "checkbox" : "radio";
-        const checked = savedAnswer?.selected?.includes(idx) || savedAnswer?.selected === idx ? 'checked' : '';
+        optionsContainer.innerHTML = '';
+        const savedAnswer = selectedAnswers[currentQuestionIndex];
 
-        label.innerHTML = `
-            <input name="answer" type="${inputType}" value="${idx}" ${checked}/>
-            <span>${opt}</span>
-        `;
-        optionsContainer.appendChild(label);
+        q.options.forEach((opt, idx) => {
+            const label = document.createElement("label");
+            label.className = "answer-box";
+
+            const inputType = q.type === "multiple" ? "checkbox" : "radio";
+            const checked = savedAnswer?.selected?.includes(idx) || savedAnswer?.selected === idx ? 'checked' : '';
+
+            label.innerHTML = `
+                <input name="answer" type="${inputType}" value="${idx}" ${checked}/>
+                <span>${opt}</span>
+            `;
+            optionsContainer.appendChild(label);
+        });
+
+        renderQuestionButtons();
+        quizDiv.classList.add("fade-in");
+
+        setTimeout(() => quizDiv.classList.remove("fade-in"), 300);
     });
-
-    renderQuestionButtons();
 }
+
 
 // === Chuyển câu hỏi ===
 function nextQuestion() {
