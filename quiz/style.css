@@ -1,0 +1,140 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 650px;
+    margin: auto;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+button {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.answer-box {
+    display: block;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+
+.answer-box.correct {
+    background-color: #c8e6c9 !important;
+    border-color: #2e7d32;
+}
+
+.answer-box.incorrect {
+    background-color: #ffcdd2 !important;
+    border-color: #c62828;
+}
+
+.answer-box input[type="radio"] {
+    margin-right: 1rem;
+}
+
+#questionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#questionButtons button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#timerDisplay {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e53935;
+    margin-bottom: 0; /* bỏ margin-bottom vì đã có margin cho cả khối */
+    text-align: center;
+    background-color: #ffe0e0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    display: inline-block;
+    min-width: 100px;
+}
+
+.selected-option {
+    background-color: #bbdefb; /* xanh nhạt đẹp */
+    border-color: #1976d2;
+    font-weight: bold;
+}
+
+
+.selected-correct {
+    background-color: #c8e6c9 !important; /* xanh lá cho đáp án đúng */
+    border-color: #2e7d32;
+    font-weight: bold;
+    color: black;
+}
+
+.selected-incorrect {
+    background-color: #ffcdd2 !important; /* đỏ cho đáp án sai */
+    border-color: #c62828;
+    font-weight: bold;
+    color: black;
+}
+
+.faded-option {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#bonusButtons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+#bonusButtons .btn {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+#bonusButtons .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
+.selected-answer {
+    background-color: #d3d3d3;
+    opacity: 0.6;
+}
