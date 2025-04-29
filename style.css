@@ -75,66 +75,74 @@ button {
     margin-bottom: 15px;
 }
 
-#timerDisplay {
-    font-size: 20px;
-    font-weight: bold;
-    color: #e53935;
-    margin-bottom: 0; /* bỏ margin-bottom vì đã có margin cho cả khối */
-    text-align: center;
-    background-color: #ffe0e0;
-    padding: 8px 16px;
-    border-radius: 8px;
-    display: inline-block;
-    min-width: 100px;
+#quiz {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.selected-option {
-    background-color: #bbdefb; /* xanh nhạt đẹp */
-    border-color: #1976d2;
-    font-weight: bold;
-}
-
-
-.selected-correct {
-    background-color: #c8e6c9 !important; /* xanh lá cho đáp án đúng */
-    border-color: #2e7d32;
-    font-weight: bold;
-    color: black;
-}
-
-.selected-incorrect {
-    background-color: #ffcdd2 !important; /* đỏ cho đáp án sai */
-    border-color: #c62828;
-    font-weight: bold;
-    color: black;
-}
-
-.faded-option {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-#bonusButtons {
+.question-header {
     display: flex;
+    flex-direction: column;
     gap: 10px;
+    margin-bottom: 15px;
+}
+
+#timerDisplay {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ff5722;
+    min-width: 60px;
+}
+
+#bonusButtons button {
+    min-width: 60px;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+}
+
+#bonusButtons button:hover {
+    filter: brightness(1.1);
+}
+
+#optionsContainer button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+#optionsContainer button:hover {
+    transform: scale(1.02);
+}
+
+.row .btn {
+    width: 100%;
     margin-top: 10px;
+    font-size: 1rem;
 }
 
-#bonusButtons .btn {
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease-in-out;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
+@media (max-width: 600px) {
+    .question-header {
+        flex-direction: column;
+    }
 
-#bonusButtons .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0.9;
-}
+    #bonusButtons {
+        flex-wrap: wrap;
+    }
 
-.selected-answer {
-    background-color: #d3d3d3;
-    opacity: 0.6;
+    .row .col {
+        padding: 0 4px;
+    }
+
+    .row {
+        margin-bottom: 10px;
+    }
+
+    #quiz {
+        padding: 15px;
+    }
 }
